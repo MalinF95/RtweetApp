@@ -10,9 +10,7 @@ library(ggraph)
 
 #creating token
 create_token(
-  app = "NDAgroup",
-  consumer_key = "TOEpjCSVlUj7vMnCPnL9P94tm",
-  consumer_secret = "IKkKuhx6MrOcNYNvfN1yri2QwNXb9XE74555nuxVplYxfLxPrs"
+INSERT TOKEN HERE
 ) -> twitter_token
 
 Trump <- search_tweets("#Trump", n = 1500)
