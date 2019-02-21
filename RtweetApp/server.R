@@ -15,28 +15,24 @@ library(igraph)
 library(hrbrthemes)
 library(ggraph)
 
-# Define server logic required to draw a histogram
+create_token(
+  insert token info here
+) -> twitter_token
+
+# Define server logic required to draw a network
 shinyServer(function(input, output) {
   
-  #creating token
-  create_token(
-    app = "NDAgroup",
-    consumer_key = "TOEpjCSVlUj7vMnCPnL9P94tm",
-    consumer_secret = "IKkKuhx6MrOcNYNvfN1yri2QwNXb9XE74555nuxVplYxfLxPrs"
-  ) -> twitter_token
+  hashtag <- search_tweets(req(input$hashtag), n = 1500)
   
-  hashtag <- search_tweets(input$hashtag, n = 1500)
-  
-  filter(hastag, retweet_count > 0) %>%
+  filter(hashtag, retweet_count > 0) %>%
     select(screen_name, mentions_screen_name) %>%
     unnest(mentions_screen_name) %>%
     filter(!is.na(mentions_screen_name)) %>%
     graph_from_data_frame() -> rt_g
-  
-  output$NetworkPlot <- renderPlot({
-    
     V(rt_g)$node_label <- unname(ifelse(degree(rt_g)[V(rt_g)] > 20, names(V(rt_g)),''))
     V(rt_g)$node_size <- unname(ifelse(degree(rt_g)[V(rt_g)] > 20, degree(rt_g), 0))
+  
+  output$NetworkPlot <- renderPlot({
     
     ggraph(rt_g, layout = 'linear', circular = TRUE) + 
       geom_edge_arc(edge_width=0.125, aes(alpha=..index..)) +
