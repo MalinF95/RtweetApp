@@ -1,4 +1,4 @@
-setwd("/Users/malinfiedler/Desktop/Uni/RSM/NetworkDataAnalytics/groupproject")
+#setwd("/Users/malinfiedler/Desktop/Uni/RSM/NetworkDataAnalytics/groupproject")
 #```{r eval=FALSE}
 
 library(httpuv)
